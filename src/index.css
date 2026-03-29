@@ -1,0 +1,11 @@
+/* Tailwind CSS 엔진 활성화 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 배경 모션을 위한 기본 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
