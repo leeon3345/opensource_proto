@@ -69,7 +69,7 @@ export default function ComplianceOverview() {
         </div>
 
         {/* Center/Right Side: Radial Progress Bar */}
-        <div className="w-2/3 flex justify-center items-center relative">
+        <div className="w-2/3 flex flex-col justify-center items-center relative">
           <div className="relative flex justify-center items-center w-[240px] h-[240px]">
             {/* Background Circle */}
             <svg className="absolute w-[240px] h-[240px] transform -rotate-90">
@@ -107,6 +107,7 @@ export default function ComplianceOverview() {
               <span className="text-[9px] text-blue-400/40 uppercase mt-2 border border-blue-900/50 px-2 py-0.5 rounded-full">Target &gt; 80%</span>
             </div>
           </div>
+          <div className="text-[10px] font-mono text-blue-300/40 mt-2">102개 보안 제어 항목 기준 · 89 Pass / 13 Fail</div>
         </div>
 
       </div>

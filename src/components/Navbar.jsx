@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Navbar() {
+export default function Navbar({ onNavigate, currentPage }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -23,17 +23,25 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center space-x-2">
-          <span className="text-xl font-bold tracking-tight">ComplianceOps</span>
+          <button onClick={() => onNavigate && onNavigate('home')} className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
+            ComplianceOps
+          </button>
         </div>
 
         {/* Center: Navigation Links (Desktop) */}
         <div className="hidden md:flex items-center space-x-8">
-          <a href="#products" className="text-sm font-medium hover:text-white/70 transition-colors">
-            Products
-          </a>
-          <a href="#pricing" className="text-sm font-medium hover:text-white/70 transition-colors">
-            Pricing
-          </a>
+          <button
+            onClick={() => onNavigate && onNavigate('home')}
+            className={`text-sm font-medium transition-colors ${currentPage === 'home' ? 'text-indigo-400' : 'hover:text-white/70'}`}
+          >
+            Dashboard
+          </button>
+          <button
+            onClick={() => onNavigate && onNavigate('workflow')}
+            className={`text-sm font-medium transition-colors ${currentPage === 'workflow' ? 'text-indigo-400' : 'hover:text-white/70'}`}
+          >
+            Workflow
+          </button>
           <a href="#docs" className="text-sm font-medium hover:text-white/70 transition-colors">
             Docs
           </a>
@@ -72,12 +80,12 @@ export default function Navbar() {
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-[#070303] border-b border-white/10 px-6 py-4 flex flex-col space-y-4">
-          <a href="#products" className="text-sm font-medium text-white hover:text-white/70 transition-colors">
-            Products
-          </a>
-          <a href="#pricing" className="text-sm font-medium text-white hover:text-white/70 transition-colors">
-            Pricing
-          </a>
+          <button onClick={() => { onNavigate && onNavigate('home'); setIsMobileMenuOpen(false); }} className="text-sm font-medium text-white hover:text-white/70 transition-colors text-left">
+            Dashboard
+          </button>
+          <button onClick={() => { onNavigate && onNavigate('workflow'); setIsMobileMenuOpen(false); }} className="text-sm font-medium text-white hover:text-white/70 transition-colors text-left">
+            Workflow
+          </button>
           <a href="#docs" className="text-sm font-medium text-white hover:text-white/70 transition-colors">
             Docs
           </a>

@@ -19,14 +19,7 @@ const slides = [
 export default function Carousel() {
   const [index, setIndex] = useState(0);
 
-  // Auto-play interval
-  useEffect(() => {
-    // All SOC slides share a unified 10-second viewing window
-    const timer = setTimeout(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 10000);
-    return () => clearTimeout(timer);
-  }, [index]);
+  // Auto-play interval has been removed for manual demo control
 
   const nextSlide = () => setIndex((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -65,16 +58,23 @@ export default function Carousel() {
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
       </button>
 
-      {/* Pagination Dots */}
-      <div className="flex justify-center space-x-3 mt-8">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setIndex(idx)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === idx ? 'bg-indigo-500 w-8 shadow-[0_0_10px_rgba(99,102,241,0.8)]' : 'bg-white/20 hover:bg-white/40'
+      {/* Pagination Navigation Bar */}
+      <div className="flex justify-center mt-6">
+        <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#0a0e1a]/90 backdrop-blur-xl border border-indigo-500/20 shadow-[0_0_30px_rgba(0,0,0,0.6)]">
+          {['Admission', 'Runtime', 'Compliance', 'AI Policy', 'Report', 'YAML Diff'].map((label, idx) => (
+            <button
+              key={idx}
+              onClick={() => setIndex(idx)}
+              className={`px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider transition-all duration-300 ${
+                index === idx
+                  ? 'bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 shadow-[0_0_12px_rgba(99,102,241,0.5)]'
+                  : 'text-white/30 hover:text-white/60 hover:bg-white/5'
               }`}
-          />
-        ))}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
     </div>

@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const policies = [
-  { id: 1, title: '접근 통제 (Access Control)', desc: '비인가자의 인프라 및 애플리케이션 접근을 원천 차단하고 권한을 최소화합니다.', color: 'from-orange-500/20 to-red-500/5', shadow: 'rgba(251,146,60,0.2)' },
-  { id: 2, title: '데이터 암호화 (Encryption)', desc: 'KMS를 연동하여 중요 데이터를 저장 및 전송 구간에서 강력하게 암호화합니다.', color: 'from-red-500/20 to-rose-500/5', shadow: 'rgba(239,68,68,0.2)' },
-  { id: 3, title: '로그 관리 (Audit Logging)', desc: 'CloudTrail 및 주요 서비스 로그를 안전한 S3 웜(WORM) 저장소에 영구 보관합니다.', color: 'from-rose-500/20 to-pink-500/5', shadow: 'rgba(244,63,94,0.2)' },
-  { id: 4, title: '네트워크 보안 (Network Sec)', desc: 'VPC 분리, Security Group 보안, WAF/Shield를 이용해 불법 트래픽을 차단합니다.', color: 'from-pink-500/20 to-purple-500/5', shadow: 'rgba(236,72,153,0.2)' },
-  { id: 5, title: '계정 통제 (IAM Control)', desc: 'MFA 필수 적용 및 사용자 암호 복잡도, 주기적 변경 정책을 강제 점검합니다.', color: 'from-purple-500/20 to-indigo-500/5', shadow: 'rgba(168,85,247,0.2)' },
+  { id: 1, title: 'Admission Control', desc: 'Kyverno Mutate로 securityContext 자동 주입 및 Gatekeeper를 통한 루트 권한 배포 차단', color: 'from-indigo-500/20 to-violet-600/20', shadow: 'rgba(99,102,241,0.2)' },
+  { id: 2, title: 'Image Security', desc: 'Trivy Operator 기반 실시간 이미지 스캔 및 Critical 취약점 발견 시 배포 승인 거부', color: 'from-violet-500/20 to-purple-600/20', shadow: 'rgba(139,92,246,0.2)' },
+  { id: 3, title: 'Runtime Protection', desc: 'Falco eBPF 센서로 커널 시스콜 감시 및 쉘 접속 등 이상 행위 탐지 시 Pod 즉시 격리', color: 'from-purple-500/20 to-fuchsia-600/20', shadow: 'rgba(168,85,247,0.2)' },
+  { id: 4, title: 'Policy GitOps', desc: '보안 정책의 코드화(PaC)를 통한 버전 관리 및 변경 이력에 대한 투명한 감사 추적', color: 'from-fuchsia-500/20 to-pink-600/20', shadow: 'rgba(217,70,239,0.2)' },
+  { id: 5, title: 'Compliance Report', desc: 'PolicyReport CRD 데이터를 집계하여 KISA ISMS-P 인증 항목별 준수율 실시간 산출', color: 'from-blue-500/20 to-indigo-600/20', shadow: 'rgba(59,130,246,0.2)' },
 ];
 
 const duplicatedPolicies = [...policies, ...policies];
@@ -38,10 +38,10 @@ export default function PolicyList() {
               key={`${policy.id}-${index}`} 
               whileHover={{ scale: 1.02, y: -5 }} 
               style={{ boxShadow: `0 0 15px ${policy.shadow}` }} 
-              className={`w-[320px] h-[160px] p-6 rounded-2xl bg-gradient-to-br bg-[#110303]/60 ${policy.color} backdrop-blur-md relative border border-white/5 flex flex-col justify-between transition-all cursor-pointer`}
+              className={`w-[320px] h-[160px] p-6 rounded-2xl bg-gradient-to-br bg-[#060410]/60 ${policy.color} backdrop-blur-md relative border border-indigo-400/20 flex flex-col justify-between transition-all cursor-pointer`}
             >
-              <h3 className="text-lg font-bold text-red-100 relative z-10 drop-shadow-md">{policy.title}</h3>
-              <p className="text-[13px] text-red-100/60 leading-relaxed font-medium relative z-10">
+              <h3 className="text-lg font-bold text-indigo-100 relative z-10 drop-shadow-md">{policy.title}</h3>
+              <p className="text-[13px] text-indigo-200/70 leading-relaxed font-medium relative z-10">
                 {policy.desc}
               </p>
             </motion.div>
