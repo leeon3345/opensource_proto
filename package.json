@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "homepage": "https://leeon3345.github.io/opensource_proto",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

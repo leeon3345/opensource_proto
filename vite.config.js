@@ -4,9 +4,10 @@ import react from '@vitejs/plugin-react';
 
 // 설정 객체 외부 반환 (export default 필수)
 export default defineConfig({
+  base: '/opensource_proto/',
   plugins: [react()],
   server: {
-    port: 5173, // 기본 포트 설정
-    open: true, // 서버 시작 시 브라우저 자동 실행
+    port: 5173,
+    open: true,
   }
 });
