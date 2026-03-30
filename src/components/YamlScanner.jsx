@@ -70,10 +70,10 @@ export default function YamlScanner() {
   };
 
   return (
-    <div className="flex flex-col h-[460px] bg-[#0A0E17]/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.2)] border border-emerald-500/30 font-sans relative">
+    <div className="flex flex-col min-h-[320px] sm:min-h-[420px] md:h-[460px] bg-[#0A0E17]/90 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.2)] border border-emerald-500/30 font-sans relative">
       
       {/* Header */}
-      <div className="px-6 py-4 border-b border-emerald-500/20 bg-gradient-to-r from-emerald-900/40 to-transparent flex items-center justify-between z-10">
+      <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-emerald-500/20 bg-gradient-to-r from-emerald-900/40 to-transparent flex flex-col sm:flex-row sm:items-center justify-between z-10 gap-2 sm:gap-0">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-emerald-500/20 rounded-lg shadow-[0_0_15px_rgba(16,185,129,0.4)] border border-emerald-400/30">
             <svg className="w-5 h-5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +81,7 @@ export default function YamlScanner() {
             </svg>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-emerald-100 tracking-wide drop-shadow-md">YAML Auto-Remediation</h2>
+            <h2 className="text-sm sm:text-lg font-bold text-emerald-100 tracking-wide drop-shadow-md">YAML Auto-Remediation</h2>
             <p className="text-[10px] text-emerald-300/70 font-mono tracking-wider">Kyverno Mutate Engine Integration</p>
           </div>
         </div>
@@ -130,15 +130,15 @@ export default function YamlScanner() {
               className="w-full h-full flex flex-col pt-2 bg-gradient-to-t from-emerald-950/20 to-black/20"
             >
               {/* Diff Split Board */}
-              <div className="flex-1 flex px-4 gap-4 overflow-hidden mb-[70px]">
+              <div className="flex-1 flex flex-col sm:flex-row px-2 sm:px-4 gap-2 sm:gap-4 overflow-hidden mb-[70px]">
                 
                 {/* Left: Original */}
-                <div className="w-1/2 flex flex-col bg-rose-950/10 border border-rose-900/30 rounded-lg overflow-hidden shadow-[0_0_30px_rgba(225,29,72,0.05)_inset]">
+                <div className="w-full sm:w-1/2 flex flex-col bg-rose-950/10 border border-rose-900/30 rounded-lg overflow-hidden shadow-[0_0_30px_rgba(225,29,72,0.05)_inset] max-h-[150px] sm:max-h-none">
                   <div className="py-2 px-4 bg-rose-950/40 text-[10px] font-bold text-rose-300/80 uppercase tracking-widest border-b border-rose-900/40 flex justify-between items-center">
                     <span>Before (Original)</span>
                     <span className="text-[9px] bg-rose-900/50 px-1.5 rounded opacity-60">2 Violations</span>
                   </div>
-                  <div className="flex-1 overflow-y-auto p-3 font-mono text-xs leading-loose pt-2">
+                  <div className="flex-1 overflow-y-auto p-2 sm:p-3 font-mono text-[10px] sm:text-xs leading-loose pt-2">
                     {beforeLines.map((line, idx) => (
                       <div key={idx} className={`px-2 flex ${line.type === 'delete' ? 'bg-rose-500/20 text-rose-200 border-l-[3px] border-rose-500' : 'text-slate-300/70 border-l-[3px] border-transparent'}`}>
                         <span className="select-none text-rose-800 w-6 opacity-60 text-[10px] leading-5 pt-0.5">{idx + 1}</span>
@@ -149,12 +149,12 @@ export default function YamlScanner() {
                 </div>
 
                 {/* Right: Mutated */}
-                <div className="w-1/2 flex flex-col bg-emerald-950/10 border border-emerald-900/30 rounded-lg overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.05)_inset]">
+                <div className="w-full sm:w-1/2 flex flex-col bg-emerald-950/10 border border-emerald-900/30 rounded-lg overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.05)_inset] max-h-[150px] sm:max-h-none">
                   <div className="py-2 px-4 bg-emerald-950/40 text-[10px] font-bold text-emerald-300/80 uppercase tracking-widest border-b border-emerald-900/40 flex justify-between items-center">
                     <span>After (Secure Mutated)</span>
                     <span className="text-[9px] bg-emerald-500/20 px-1.5 rounded text-emerald-200">Kyverno Patched</span>
                   </div>
-                  <div className="flex-1 overflow-y-auto p-3 font-mono text-xs leading-loose pt-2">
+                  <div className="flex-1 overflow-y-auto p-2 sm:p-3 font-mono text-[10px] sm:text-xs leading-loose pt-2">
                     {afterLines.map((line, idx) => (
                       <div 
                         key={idx} 
@@ -181,8 +181,8 @@ export default function YamlScanner() {
               </div>
 
               {/* Action Bar Floating Footer */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/90 to-transparent flex justify-end space-x-3 pointer-events-none">
-                <div className="pointer-events-auto flex items-center space-x-3">
+              <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black via-black/90 to-transparent flex justify-end space-x-2 sm:space-x-3 pointer-events-none">
+                <div className="pointer-events-auto flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 justify-end">
                   <button className="px-4 py-2 border border-emerald-500/30 hover:bg-emerald-900/40 text-emerald-200 text-xs font-bold rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] transition-all flex items-center space-x-1.5">
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                     <span>수정본 다운로드</span>

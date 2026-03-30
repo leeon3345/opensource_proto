@@ -10,10 +10,10 @@ const blockedEvents = [
 
 export default function AdmissionSecurity() {
   return (
-    <div className="flex flex-col h-[460px] bg-[#0c1222]/80 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(30,58,138,0.3)] border border-indigo-500/30">
+    <div className="flex flex-col min-h-[320px] sm:min-h-[420px] md:h-[460px] bg-[#0c1222]/80 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(30,58,138,0.3)] border border-indigo-500/30">
       
       {/* Header */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-indigo-500/20 bg-gradient-to-r from-indigo-900/40 to-transparent">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between border-b border-indigo-500/20 bg-gradient-to-r from-indigo-900/40 to-transparent">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-indigo-500/20 rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.5)] border border-indigo-400/30">
             <svg className="w-5 h-5 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,8 +21,8 @@ export default function AdmissionSecurity() {
             </svg>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-indigo-100 tracking-wide drop-shadow-md">Admission Security</h2>
-            <p className="text-[10px] text-indigo-300/70 font-mono tracking-wider">Kyverno & Gatekeeper Runtime Webhook</p>
+             <h2 className="text-sm sm:text-lg font-bold text-indigo-100 tracking-wide drop-shadow-md">Admission Security</h2>
+            <p className="text-[9px] sm:text-[10px] text-indigo-300/70 font-mono tracking-wider">Kyverno & Gatekeeper Runtime Webhook</p>
           </div>
         </div>
         <div className="flex space-x-2">
@@ -34,30 +34,30 @@ export default function AdmissionSecurity() {
         </div>
       </div>
 
-      <div className="flex-1 p-6 flex gap-6 min-h-0">
+      <div className="flex-1 p-3 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 min-h-0">
         
         {/* Left Column: Metrics */}
-        <div className="w-1/3 flex flex-col gap-4 min-h-0">
-          <div className="bg-[#0b0f19]/80 rounded-xl p-5 border border-rose-900/40 shadow-[0_0_20px_rgba(225,29,72,0.1)_inset] relative overflow-hidden group">
+        <div className="w-full sm:w-1/3 flex flex-row sm:flex-col gap-3 sm:gap-4 min-h-0">
+          <div className="flex-1 sm:flex-none bg-[#0b0f19]/80 rounded-xl p-3 sm:p-5 border border-rose-900/40 shadow-[0_0_20px_rgba(225,29,72,0.1)_inset] relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-16 h-16 bg-rose-500/10 rounded-full blur-xl group-hover:bg-rose-500/20 transition-all duration-500"></div>
             <h3 className="text-xs font-bold text-rose-200/60 uppercase tracking-widest mb-1">위험 배포 차단 횟수</h3>
             <div className="flex items-baseline space-x-2">
-              <span className="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-red-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]">
+              <span className="text-2xl sm:text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-red-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]">
                 142
               </span>
               <span className="text-xs font-bold text-rose-400">건</span>
             </div>
-            <div className="mt-3 text-[10px] font-mono text-rose-300/60 flex items-center">
+            <div className="mt-2 sm:mt-3 text-[10px] font-mono text-rose-300/60 flex items-center">
               <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
               +12% from yesterday
             </div>
           </div>
 
-          <div className="bg-[#0b0f19]/80 rounded-xl p-5 border border-indigo-900/40 shadow-[0_0_20px_rgba(79,70,229,0.1)_inset] relative overflow-hidden group flex-1">
+          <div className="flex-1 bg-[#0b0f19]/80 rounded-xl p-3 sm:p-5 border border-indigo-900/40 shadow-[0_0_20px_rgba(79,70,229,0.1)_inset] relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition-all duration-500"></div>
              <h3 className="text-xs font-bold text-indigo-200/60 uppercase tracking-widest mb-1">자동 교정 성공률</h3>
             <div className="flex items-baseline space-x-2">
-              <span className="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]">
+              <span className="text-2xl sm:text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]">
                 98.5
               </span>
               <span className="text-xs font-bold text-indigo-400">%</span>
@@ -74,9 +74,9 @@ export default function AdmissionSecurity() {
         </div>
 
         {/* Right Column: Event Log */}
-        <div className="w-2/3 flex flex-col bg-[#0b0f19]/80 rounded-xl border border-indigo-900/30 shadow-[0_0_15px_rgba(0,0,0,0.5)_inset] overflow-hidden min-h-0">
-          <div className="px-4 py-2 bg-indigo-950/40 border-b border-indigo-900/30 flex justify-between items-center">
-            <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider">실시간 웹훅 감사 로그 (Real-time Webhook)</span>
+        <div className="w-full sm:w-2/3 flex flex-col bg-[#0b0f19]/80 rounded-xl border border-indigo-900/30 shadow-[0_0_15px_rgba(0,0,0,0.5)_inset] overflow-hidden min-h-0">
+          <div className="px-3 sm:px-4 py-2 bg-indigo-950/40 border-b border-indigo-900/30 flex justify-between items-center">
+            <span className="text-[10px] sm:text-xs font-bold text-indigo-300 uppercase tracking-wider truncate">실시간 웹훅 감사 로그</span>
             <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Total 1,024 Events</span>
           </div>
           <div className="flex-1 p-3 overflow-y-auto space-y-2">
@@ -88,11 +88,11 @@ export default function AdmissionSecurity() {
                 transition={{ delay: idx * 0.1 }}
                 className="flex items-center justify-between p-3 rounded-lg bg-indigo-950/20 border border-indigo-900/20 hover:bg-indigo-900/30 transition-colors"
               >
-                <div className="flex items-center space-x-3">
-                  <span className="text-[10px] font-mono text-indigo-400/60">{evt.time}</span>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <span className="text-[10px] font-mono text-indigo-400/60 hidden sm:inline">{evt.time}</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-bold text-indigo-100">{evt.resource}</span>
-                    <span className="text-[10px] text-indigo-300/50 font-mono">Violated: {evt.rule}</span>
+                    <span className="text-xs sm:text-sm font-bold text-indigo-100 truncate max-w-[120px] sm:max-w-none">{evt.resource}</span>
+                    <span className="text-[9px] sm:text-[10px] text-indigo-300/50 font-mono truncate max-w-[120px] sm:max-w-none">Violated: {evt.rule}</span>
                   </div>
                 </div>
                 <div className={`px-2 py-1 rounded text-[10px] font-bold tracking-widest border shadow-[0_0_8px_rgba(0,0,0,0.5)] ${evt.action === 'BLOCKED' ? 'bg-rose-500/20 text-rose-300 border-rose-500/30' : 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'}`}>

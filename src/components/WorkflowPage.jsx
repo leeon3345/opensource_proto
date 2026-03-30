@@ -110,9 +110,28 @@ const layerColors = {
 /* ─── SECTION TITLE ─── */
 function SectionTitle({ children, sub }) {
   return (
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">{children}</h2>
-      {sub && <p className="mt-3 text-sm text-blue-200/35 font-medium">{sub}</p>}
+    <div className="text-center mb-8 sm:mb-12">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">{children}</h2>
+      {sub && <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-blue-200/35 font-medium">{sub}</p>}
+    </div>
+  );
+}
+
+/* ─── STEP DETAIL PANEL (used in both desktop & mobile) ─── */
+function StepDetail({ step }) {
+  const c = colorMap[step.color];
+  return (
+    <div className={`rounded-2xl bg-[#0b0f19]/80 backdrop-blur-xl border ${c.border} p-5 sm:p-8 shadow-[0_0_40px_rgba(0,0,0,0.5)]`}>
+      <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+        <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl ${c.iconBg} border ${c.border} flex items-center justify-center ${c.text}`}>{step.icon}</div>
+        <div><h2 className="text-xl sm:text-2xl font-bold text-white/90">{step.title}</h2><p className={`text-xs uppercase font-bold ${c.text} tracking-widest`}>{step.subtitle}</p></div>
+      </div>
+      <div className="flex flex-wrap gap-2 mb-4 sm:mb-5">{step.tooltip.techs.map(t => <span key={t} className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold border ${c.badge}`}>{t}</span>)}</div>
+      <p className="text-xs sm:text-sm text-white/50 leading-relaxed mb-4 sm:mb-6">{step.tooltip.detail}</p>
+      <div className={`rounded-xl bg-[#060a15]/60 border ${c.border} p-4 sm:p-5`}>
+        <span className={`text-[10px] uppercase font-bold ${c.text} tracking-widest`}>주요 기능</span>
+        <ul className="mt-2 sm:mt-3 space-y-2 sm:space-y-2.5">{step.items.map((item, i) => <li key={i} className="flex items-start space-x-2"><span className={`mt-[6px] w-1.5 h-1.5 rounded-full ${c.text} bg-current flex-shrink-0`} /><span className="text-xs sm:text-sm text-white/55 leading-relaxed">{item}</span></li>)}</ul>
+      </div>
     </div>
   );
 }
@@ -120,61 +139,85 @@ function SectionTitle({ children, sub }) {
 /* ─── MAIN COMPONENT ─── */
 export default function WorkflowPage({ onBack }) {
   const [activeIdx, setActiveIdx] = useState(null);
+  // For mobile: tap to expand
+  const [mobileExpandedIdx, setMobileExpandedIdx] = useState(null);
+
+  const handleMobileTap = (idx) => {
+    setMobileExpandedIdx(mobileExpandedIdx === idx ? null : idx);
+  };
 
   return (
     <div className="bg-[#0B0F1A] text-white font-noto relative">
       {/* BG */}
       <div className="fixed inset-0 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(99,102,241,0.04) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
-      {/* ──────────── SECTION 1: Hero + Vertical Cards (viewport height) ──────────── */}
-      <section className="h-screen flex flex-col relative z-10">
+      {/* ──────────── SECTION 1: Hero + Cards ──────────── */}
+      <section className="min-h-screen md:h-screen flex flex-col relative z-10">
         {/* Back */}
-        <div className="px-8 pt-5 flex-shrink-0">
+        <div className="px-4 sm:px-8 pt-5 flex-shrink-0">
           <button onClick={onBack} className="flex items-center space-x-2 text-xs text-white/35 hover:text-white/70 transition-colors group">
             <svg className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
             <span className="font-medium">Dashboard</span>
           </button>
         </div>
 
-        {/* Main: Left cards + Right detail */}
-        <div className="flex-1 flex px-8 pt-4 pb-6 gap-8 min-h-0">
-          {/* Left */}
-          <div className="w-[480px] flex-shrink-0 flex flex-col min-h-0">
-            <div className="mb-5 flex-shrink-0">
-              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-blue-300 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">Workflow</h1>
-              <p className="mt-1.5 text-sm text-blue-200/40 font-medium">End-to-end Kubernetes 컴플라이언스 자동화</p>
+        {/* Main: Cards layout - stacked on mobile, side-by-side on desktop */}
+        <div className="flex-1 flex flex-col md:flex-row px-4 sm:px-8 pt-4 pb-6 gap-6 md:gap-8 min-h-0">
+          {/* Left / Top on mobile */}
+          <div className="w-full md:w-[480px] flex-shrink-0 flex flex-col min-h-0">
+            <div className="mb-4 sm:mb-5 flex-shrink-0">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-blue-300 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">Workflow</h1>
+              <p className="mt-1 sm:mt-1.5 text-xs sm:text-sm text-blue-200/40 font-medium">End-to-end Kubernetes 컴플라이언스 자동화</p>
               <div className="flex mt-2 space-x-1.5">
                 {['Policy', 'Prevention', 'Detection', 'Reporting'].map((s, i) => (
                   <React.Fragment key={s}>
-                    <span className="text-[11px] font-bold text-indigo-300/45 uppercase tracking-widest">{s}</span>
+                    <span className="text-[10px] sm:text-[11px] font-bold text-indigo-300/45 uppercase tracking-widest">{s}</span>
                     {i < 3 && <span className="text-indigo-500/25 text-[9px]">→</span>}
                   </React.Fragment>
                 ))}
               </div>
             </div>
 
-            <div className="flex-1 flex flex-col justify-between min-h-0 space-y-3">
+            <div className="flex-1 flex flex-col justify-between min-h-0 space-y-2 sm:space-y-3">
               {steps.map((step, idx) => {
                 const c = colorMap[step.color];
                 const isActive = activeIdx === idx;
+                const isMobileOpen = mobileExpandedIdx === idx;
                 return (
                   <div key={step.num} className="flex flex-col">
                     <motion.div
                       onMouseEnter={() => setActiveIdx(idx)}
                       onMouseLeave={() => setActiveIdx(null)}
+                      onClick={() => handleMobileTap(idx)}
                       whileHover={{ scale: 1.02, x: 4 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                      className={`relative flex items-center space-x-4 rounded-xl bg-gradient-to-r ${c.bg} bg-[#0b0f19]/70 backdrop-blur-xl border ${c.border} px-5 py-4 cursor-pointer transition-shadow duration-300`}
+                      className={`relative flex items-center space-x-3 sm:space-x-4 rounded-xl bg-gradient-to-r ${c.bg} bg-[#0b0f19]/70 backdrop-blur-xl border ${c.border} px-4 sm:px-5 py-3 sm:py-4 cursor-pointer transition-shadow duration-300`}
                       style={{ boxShadow: isActive ? `0 0 25px ${c.glow}, 0 4px 20px rgba(0,0,0,0.3)` : '0 2px 10px rgba(0,0,0,0.2)' }}
                     >
-                      <div className={`w-9 h-9 rounded-lg ${c.iconBg} border ${c.border} flex items-center justify-center ${c.text} flex-shrink-0 text-sm font-black`}>{step.num}</div>
-                      <div className={`${c.text} flex-shrink-0`}>{step.icon}</div>
+                      <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${c.iconBg} border ${c.border} flex items-center justify-center ${c.text} flex-shrink-0 text-xs sm:text-sm font-black`}>{step.num}</div>
+                      <div className={`${c.text} flex-shrink-0 hidden sm:block`}>{step.icon}</div>
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-base font-bold text-white/85 truncate">{step.title}</h3>
-                        <p className={`text-[11px] uppercase font-bold ${c.text} tracking-widest`}>{step.subtitle}</p>
+                        <h3 className="text-sm sm:text-base font-bold text-white/85 truncate">{step.title}</h3>
+                        <p className={`text-[10px] sm:text-[11px] uppercase font-bold ${c.text} tracking-widest`}>{step.subtitle}</p>
                       </div>
-                      <svg className={`w-5 h-5 flex-shrink-0 transition-all duration-200 ${isActive ? `${c.text} translate-x-0.5` : 'text-white/15'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                      <svg className={`w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 transition-all duration-200 ${isActive || isMobileOpen ? `${c.text} translate-x-0.5` : 'text-white/15'} ${isMobileOpen ? 'rotate-90 md:rotate-0' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                     </motion.div>
+                    
+                    {/* Mobile expanded detail (shown inline below step card) */}
+                    <AnimatePresence>
+                      {isMobileOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="md:hidden overflow-hidden mt-2"
+                        >
+                          <StepDetail step={step} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
                     {idx < steps.length - 1 && (
                       <div className="flex justify-start pl-7 py-0.5"><div className={`w-[1.5px] h-2 bg-gradient-to-b ${c.line}`} /></div>
                     )}
@@ -184,27 +227,12 @@ export default function WorkflowPage({ onBack }) {
             </div>
           </div>
 
-          {/* Right Detail */}
-          <div className="flex-1 flex items-center justify-center min-h-0">
+          {/* Right Detail - Desktop only (hover reveal) */}
+          <div className="hidden md:flex flex-1 items-center justify-center min-h-0">
             <AnimatePresence mode="wait">
               {activeIdx !== null ? (
                 <motion.div key={activeIdx} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.25 }} className="w-full max-w-xl">
-                  {(() => {
-                    const step = steps[activeIdx]; const c = colorMap[step.color]; return (
-                      <div className={`rounded-2xl bg-[#0b0f19]/80 backdrop-blur-xl border ${c.border} p-8 shadow-[0_0_40px_rgba(0,0,0,0.5)]`}>
-                        <div className="flex items-center space-x-4 mb-6">
-                          <div className={`w-14 h-14 rounded-xl ${c.iconBg} border ${c.border} flex items-center justify-center ${c.text}`}>{step.icon}</div>
-                          <div><h2 className="text-2xl font-bold text-white/90">{step.title}</h2><p className={`text-xs uppercase font-bold ${c.text} tracking-widest`}>{step.subtitle}</p></div>
-                        </div>
-                        <div className="flex flex-wrap gap-2 mb-5">{step.tooltip.techs.map(t => <span key={t} className={`px-3 py-1.5 rounded-full text-xs font-bold border ${c.badge}`}>{t}</span>)}</div>
-                        <p className="text-sm text-white/50 leading-relaxed mb-6">{step.tooltip.detail}</p>
-                        <div className={`rounded-xl bg-[#060a15]/60 border ${c.border} p-5`}>
-                          <span className={`text-[10px] uppercase font-bold ${c.text} tracking-widest`}>주요 기능</span>
-                          <ul className="mt-3 space-y-2.5">{step.items.map((item, i) => <li key={i} className="flex items-start space-x-2"><span className={`mt-[6px] w-1.5 h-1.5 rounded-full ${c.text} bg-current flex-shrink-0`} /><span className="text-sm text-white/55 leading-relaxed">{item}</span></li>)}</ul>
-                        </div>
-                      </div>
-                    );
-                  })()}
+                  <StepDetail step={steps[activeIdx]} />
                 </motion.div>
               ) : (
                 <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center text-center">
@@ -228,24 +256,24 @@ export default function WorkflowPage({ onBack }) {
       </section>
 
       {/* ──────────── SECTION 2: Before vs After ──────────── */}
-      <section className="relative z-10 max-w-6xl mx-auto px-8 py-24">
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-24">
         <SectionTitle sub="기존 수동 감사 체계를 자동화된 플랫폼으로 전환">Before vs After</SectionTitle>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* Before */}
-          <div className="rounded-2xl bg-rose-500/5 border border-rose-500/20 p-6 relative overflow-hidden">
+          <div className="rounded-xl sm:rounded-2xl bg-rose-500/5 border border-rose-500/20 p-4 sm:p-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 blur-[60px] rounded-full pointer-events-none" />
-            <h3 className="text-base font-bold text-rose-400 uppercase tracking-widest mb-1">Traditional Approach</h3>
-            <p className="text-xs text-rose-300/40 mb-5">기존 방식의 한계</p>
-            <div className="space-y-3">
+            <h3 className="text-sm sm:text-base font-bold text-rose-400 uppercase tracking-widest mb-1">Traditional Approach</h3>
+            <p className="text-[10px] sm:text-xs text-rose-300/40 mb-4 sm:mb-5">기존 방식의 한계</p>
+            <div className="space-y-2 sm:space-y-3">
               {beforeItems.map((item, i) => (
-                <div key={i} className="flex items-start space-x-3 p-3 rounded-lg bg-rose-950/30 border border-rose-900/20">
+                <div key={i} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 rounded-lg bg-rose-950/30 border border-rose-900/20">
                   <div className="mt-0.5 w-5 h-5 rounded bg-rose-500/20 flex items-center justify-center flex-shrink-0">
                     <svg className="w-3 h-3 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" /></svg>
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-rose-200/80">{item.label}</span>
-                    <p className="text-xs text-rose-300/40 mt-0.5">{item.desc}</p>
+                    <span className="text-xs sm:text-sm font-bold text-rose-200/80">{item.label}</span>
+                    <p className="text-[10px] sm:text-xs text-rose-300/40 mt-0.5">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -253,19 +281,19 @@ export default function WorkflowPage({ onBack }) {
           </div>
 
           {/* After */}
-          <div className="rounded-2xl bg-blue-500/5 border border-blue-500/20 p-6 relative overflow-hidden">
+          <div className="rounded-xl sm:rounded-2xl bg-blue-500/5 border border-blue-500/20 p-4 sm:p-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full pointer-events-none" />
-            <h3 className="text-base font-bold text-blue-400 uppercase tracking-widest mb-1">ComplianceOps</h3>
-            <p className="text-xs text-blue-300/40 mb-5">자동화된 접근 방식</p>
-            <div className="space-y-3">
+            <h3 className="text-sm sm:text-base font-bold text-blue-400 uppercase tracking-widest mb-1">ComplianceOps</h3>
+            <p className="text-[10px] sm:text-xs text-blue-300/40 mb-4 sm:mb-5">자동화된 접근 방식</p>
+            <div className="space-y-2 sm:space-y-3">
               {afterItems.map((item, i) => (
-                <div key={i} className="flex items-start space-x-3 p-3 rounded-lg bg-blue-950/30 border border-blue-900/20">
+                <div key={i} className="flex items-start space-x-2 sm:space-x-3 p-2.5 sm:p-3 rounded-lg bg-blue-950/30 border border-blue-900/20">
                   <div className="mt-0.5 w-5 h-5 rounded bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
                     <svg className="w-3 h-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-blue-200/80">{item.label}</span>
-                    <p className="text-xs text-blue-300/40 mt-0.5">{item.desc}</p>
+                    <span className="text-xs sm:text-sm font-bold text-blue-200/80">{item.label}</span>
+                    <p className="text-[10px] sm:text-xs text-blue-300/40 mt-0.5">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -275,33 +303,34 @@ export default function WorkflowPage({ onBack }) {
       </section>
 
       {/* ──────────── SECTION 3: Architecture Diagram ──────────── */}
-      <section className="relative z-10 max-w-6xl mx-auto px-8 py-24">
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-24">
         <SectionTitle sub="Admission → Runtime → Observability 계층 구조">System Architecture</SectionTitle>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {archLayers.map((layer, li) => {
             const lc = layerColors[layer.color];
             return (
-              <div key={layer.name} className={`rounded-2xl border ${lc.border} bg-[#0b0f19]/50 p-5`}>
-                <div className="flex items-center space-x-2 mb-4">
+              <div key={layer.name} className={`rounded-xl sm:rounded-2xl border ${lc.border} bg-[#0b0f19]/50 p-4 sm:p-5`}>
+                <div className="flex items-center space-x-2 mb-3 sm:mb-4">
                   <div className={`w-2 h-2 rounded-full ${lc.text} bg-current`} />
-                  <h4 className={`text-sm font-bold uppercase tracking-widest ${lc.text}`}>{layer.name}</h4>
+                  <h4 className={`text-xs sm:text-sm font-bold uppercase tracking-widest ${lc.text}`}>{layer.name}</h4>
                 </div>
-                <div className="flex items-center justify-between gap-3">
+                {/* Horizontal scroll on mobile, flex on desktop */}
+                <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-2 sm:pb-0 sm:justify-between">
                   {layer.nodes.map((node, ni) => (
                     <React.Fragment key={node.id}>
-                      <motion.div whileHover={{ scale: 1.05, y: -2 }} className={`flex-1 rounded-xl ${lc.nodeBg} border ${lc.nodeBorder} p-4 text-center cursor-pointer transition-shadow hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]`}>
-                        <span className="text-base font-bold text-white/80 block">{node.label}</span>
-                        <span className={`text-xs ${lc.text} font-medium`}>{node.sub}</span>
+                      <motion.div whileHover={{ scale: 1.05, y: -2 }} className={`flex-shrink-0 sm:flex-1 min-w-[100px] sm:min-w-0 rounded-xl ${lc.nodeBg} border ${lc.nodeBorder} p-3 sm:p-4 text-center cursor-pointer transition-shadow hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]`}>
+                        <span className="text-xs sm:text-base font-bold text-white/80 block">{node.label}</span>
+                        <span className={`text-[10px] sm:text-xs ${lc.text} font-medium`}>{node.sub}</span>
                       </motion.div>
                       {ni < layer.nodes.length - 1 && (
-                        <svg className="w-4 h-4 text-white/15 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                        <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white/15 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                       )}
                     </React.Fragment>
                   ))}
                 </div>
                 {li < archLayers.length - 1 && (
-                  <div className="flex justify-center mt-4">
+                  <div className="flex justify-center mt-3 sm:mt-4">
                     <svg className="w-5 h-5 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
                   </div>
                 )}
@@ -312,14 +341,14 @@ export default function WorkflowPage({ onBack }) {
       </section>
 
       {/* ──────────── SECTION 4: Event Timeline ──────────── */}
-      <section className="relative z-10 max-w-4xl mx-auto px-8 py-24">
+      <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-24">
         <SectionTitle sub="배포 요청부터 자동 대응까지의 실시간 이벤트 흐름">Real-time Event Timeline</SectionTitle>
 
         <div className="relative">
           {/* Vertical line */}
           <div className="absolute left-[18px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-blue-500/30 via-rose-500/20 to-emerald-500/20" />
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {timelineEvents.map((evt, i) => {
               const ts = typeStyles[evt.type];
               return (
@@ -329,19 +358,19 @@ export default function WorkflowPage({ onBack }) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ delay: i * 0.05 }}
-                  className="flex items-start space-x-4 relative"
+                  className="flex items-start space-x-3 sm:space-x-4 relative"
                 >
                   {/* Dot */}
                   <div className="flex-shrink-0 w-[38px] flex justify-center pt-3 relative z-10">
                     <div className={`w-3 h-3 rounded-full ${ts.dot} ring-4 ring-[#0B0F1A]`} />
                   </div>
                   {/* Content */}
-                  <div className={`flex-1 rounded-xl ${ts.bg} border ${ts.border} p-4`}>
-                    <div className="flex items-center space-x-3 mb-1">
-                      <span className="text-xs font-mono text-white/25">{evt.time}</span>
-                      <span className="text-sm font-bold text-white/80">{evt.label}</span>
+                  <div className={`flex-1 rounded-xl ${ts.bg} border ${ts.border} p-3 sm:p-4`}>
+                    <div className="flex items-center space-x-2 sm:space-x-3 mb-1">
+                      <span className="text-[10px] sm:text-xs font-mono text-white/25">{evt.time}</span>
+                      <span className="text-xs sm:text-sm font-bold text-white/80">{evt.label}</span>
                     </div>
-                    <p className="text-xs text-white/40">{evt.desc}</p>
+                    <p className="text-[10px] sm:text-xs text-white/40">{evt.desc}</p>
                   </div>
                 </motion.div>
               );
@@ -351,14 +380,14 @@ export default function WorkflowPage({ onBack }) {
       </section>
 
       {/* ──────────── SECTION 5: Live Status ──────────── */}
-      <section className="relative z-10 max-w-4xl mx-auto px-8 pt-12 pb-24">
+      <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 pt-8 sm:pt-12 pb-16 sm:pb-24">
         <SectionTitle sub="현재 클러스터 보안 상태 요약">Live Status</SectionTitle>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {statusMetrics.map((m) => (
-            <div key={m.label} className="flex flex-col items-center py-5 rounded-2xl bg-[#0e1225]/70 backdrop-blur-xl border border-indigo-500/10"
+            <div key={m.label} className="flex flex-col items-center py-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#0e1225]/70 backdrop-blur-xl border border-indigo-500/10"
               style={{ boxShadow: `0 0 25px ${m.glow}` }}>
-              <span className={`text-3xl font-black ${m.color} drop-shadow-md`}>{m.value}</span>
-              <span className="text-[9px] text-white/25 font-bold uppercase tracking-widest mt-2">{m.label}</span>
+              <span className={`text-2xl sm:text-3xl font-black ${m.color} drop-shadow-md`}>{m.value}</span>
+              <span className="text-[8px] sm:text-[9px] text-white/25 font-bold uppercase tracking-widest mt-1.5 sm:mt-2 text-center px-1">{m.label}</span>
             </div>
           ))}
         </div>

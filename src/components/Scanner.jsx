@@ -90,11 +90,11 @@ export default function Scanner() {
   };
 
   return (
-    <div className="flex flex-col h-[460px] bg-[#070510]/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.2)] border border-violet-500/30 font-sans">
+    <div className="flex flex-col min-h-[320px] sm:min-h-[420px] md:h-[460px] bg-[#070510]/90 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.2)] border border-violet-500/30 font-sans">
       
       {/* Top Header Controls */}
       <div className="flex flex-col border-b border-violet-500/20 bg-gradient-to-b from-violet-900/20 to-transparent">
-        <div className="px-6 py-4 flex items-center justify-between">
+        <div className="px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-violet-500/20 rounded-lg shadow-[0_0_15px_rgba(139,92,246,0.4)] border border-violet-400/30">
               <svg className="w-5 h-5 text-violet-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,18 +102,18 @@ export default function Scanner() {
               </svg>
             </div>
             <div>
-              <h2 className="text-lg font-bold text-violet-100 tracking-wide drop-shadow-md">Compliance Report</h2>
+              <h2 className="text-sm sm:text-lg font-bold text-violet-100 tracking-wide drop-shadow-md">Compliance Report</h2>
               <p className="text-[10px] text-violet-300/70 font-mono tracking-wider">ISMS-P Assessment Detail</p>
             </div>
           </div>
           
           {/* Tool Filters */}
-          <div className="flex space-x-2">
+          <div className="flex space-x-1.5 sm:space-x-2 overflow-x-auto">
             {tools.map(tool => (
               <button
                 key={tool}
                 onClick={() => toggleTool(tool)}
-                className={`px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all border
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[10px] font-bold tracking-widest uppercase transition-all border whitespace-nowrap
                   ${activeTools.includes(tool) 
                     ? 'bg-violet-600/30 border-violet-400/50 text-violet-200 shadow-[0_0_10px_rgba(139,92,246,0.4)]' 
                     : 'bg-black/30 border-violet-900/50 text-violet-400/40 hover:border-violet-700/50 hover:text-violet-400/80'}`
@@ -126,12 +126,12 @@ export default function Scanner() {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex px-6 space-x-1">
+        <div className="flex px-3 sm:px-6 space-x-0.5 sm:space-x-1 overflow-x-auto">
           {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-xs font-bold transition-all border-b-2
+              className={`px-2 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold transition-all border-b-2 whitespace-nowrap
                 ${activeTab === tab 
                   ? 'border-violet-400 text-violet-200 bg-violet-500/10' 
                   : 'border-transparent text-violet-400/40 hover:bg-violet-900/20 hover:text-violet-300'}`
@@ -144,7 +144,7 @@ export default function Scanner() {
       </div>
 
       {/* Report List - Expandable Accordion */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 relative scroll-smooth pr-2">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2 sm:space-y-3 relative scroll-smooth pr-2">
         {filteredReports.map((report) => {
           const isExpanded = expandedId === report.id;
           return (
@@ -178,8 +178,8 @@ export default function Scanner() {
                   
                   {/* Title & Metadata */}
                   <div className="flex flex-col space-y-1">
-                    <h3 className={`text-sm font-bold ${isExpanded ? 'text-violet-100' : 'text-violet-200/80'} drop-shadow-md`}>{report.title}</h3>
-                    <div className="flex items-center space-x-2 text-[9px] font-mono text-violet-400/50">
+                    <h3 className={`text-xs sm:text-sm font-bold ${isExpanded ? 'text-violet-100' : 'text-violet-200/80'} drop-shadow-md`}>{report.title}</h3>
+                    <div className="flex items-center space-x-2 text-[8px] sm:text-[9px] font-mono text-violet-400/50">
                       <span>[{report.id}] {report.category}</span>
                       <span className="opacity-50">•</span>
                       <span>Detected by {report.tool}</span>

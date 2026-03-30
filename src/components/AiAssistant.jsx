@@ -94,25 +94,25 @@ export default function AiAssistant() {
   }
 
   return (
-    <div className="flex w-full h-[460px] bg-[#0A0710]/80 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.3)] border border-violet-500/30">
+    <div className="flex flex-col sm:flex-row w-full min-h-[320px] sm:min-h-[420px] md:h-[460px] bg-[#0A0710]/80 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.3)] border border-violet-500/30">
       
       {/* Left Panel: Chat Interface */}
-      <div className="w-1/2 flex flex-col border-r border-violet-500/20 bg-gradient-to-b from-violet-900/10 to-transparent relative">
+      <div className="w-full sm:w-1/2 flex flex-col border-b sm:border-b-0 sm:border-r border-violet-500/20 bg-gradient-to-b from-violet-900/10 to-transparent relative max-h-[250px] sm:max-h-none">
         {/* Header */}
-        <div className="px-5 py-4 border-b border-violet-500/20 bg-violet-950/30 flex items-center justify-between">
+        <div className="px-3 sm:px-5 py-3 sm:py-4 border-b border-violet-500/20 bg-violet-950/30 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-1.5 bg-violet-500/20 rounded-lg shadow-[0_0_10px_rgba(139,92,246,0.5)] border border-violet-400/30">
               <svg className="w-5 h-5 text-violet-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
               </svg>
             </div>
-            <span className="font-bold text-sm text-violet-100 tracking-wide drop-shadow-md">AI 보안 정책 비서</span>
+            <span className="font-bold text-xs sm:text-sm text-violet-100 tracking-wide drop-shadow-md">AI 보안 정책 비서</span>
           </div>
           <span className="text-[9px] uppercase font-bold text-violet-300/60 tracking-wider">Natural Language Engine</span>
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 p-5 overflow-y-auto space-y-4">
+        <div className="flex-1 p-3 sm:p-5 overflow-y-auto space-y-3 sm:space-y-4">
           
           {/* User Prompt Bubble */}
           <motion.div 
@@ -121,7 +121,7 @@ export default function AiAssistant() {
             className="flex flex-col space-y-1 items-end w-full"
           >
             <span className="text-[10px] text-violet-300/50 mr-1">보안 담당자</span>
-            <div className="px-4 py-2.5 bg-violet-600 border border-violet-400/50 rounded-2xl rounded-tr-sm text-sm text-white shadow-[0_0_15px_rgba(139,92,246,0.4)] max-w-[90%]">
+            <div className="px-3 sm:px-4 py-2 sm:py-2.5 bg-violet-600 border border-violet-400/50 rounded-2xl rounded-tr-sm text-xs sm:text-sm text-white shadow-[0_0_15px_rgba(139,92,246,0.4)] max-w-[90%]">
               {defaultPrompt}
             </div>
           </motion.div>
@@ -168,7 +168,7 @@ export default function AiAssistant() {
         </div>
 
         {/* Fake Input Area */}
-        <div className="px-4 py-3 border-t border-violet-500/20 bg-black/20">
+        <div className="px-3 sm:px-4 py-2 sm:py-3 border-t border-violet-500/20 bg-black/20">
           <div className="w-full bg-violet-950/40 border border-violet-500/30 rounded-xl px-4 py-2.5 flex items-center justify-between text-violet-400/40 text-sm">
             <span>추가 요구사항을 자연어로 입력하세요...</span>
             <svg className="w-4 h-4 cursor-not-allowed" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
@@ -177,15 +177,15 @@ export default function AiAssistant() {
       </div>
 
       {/* Right Panel: Code Editor */}
-      <div className="w-1/2 flex flex-col bg-[#050308]/90 relative">
+      <div className="w-full sm:w-1/2 flex flex-col bg-[#050308]/90 relative min-h-[200px] sm:min-h-0">
         
         {/* Editor Header & Actions */}
-        <div className="px-5 py-3 border-b border-violet-500/20 bg-black/40 flex justify-between items-center z-10">
+        <div className="px-3 sm:px-5 py-2 sm:py-3 border-b border-violet-500/20 bg-black/40 flex justify-between items-center z-10">
           <div className="flex space-x-1.5 item-center">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
             <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
             <span className="w-2.5 h-2.5 rounded-full bg-green-500/50"></span>
-            <span className="ml-3 text-[10px] font-mono text-violet-300/50">/policies/disallow-root-user.yaml</span>
+            <span className="ml-3 text-[9px] sm:text-[10px] font-mono text-violet-300/50 truncate">/policies/disallow-root-user.yaml</span>
           </div>
           
           <AnimatePresence>

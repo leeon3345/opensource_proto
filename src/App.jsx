@@ -38,14 +38,14 @@ export default function App() {
       <main className="relative z-10 w-full flex flex-col min-h-screen">
         
         {/* 상단 중앙 집중형 타이틀 */}
-        <section className="max-w-7xl w-full mx-auto px-6 pt-16 pb-4 flex flex-col items-center justify-center text-center">
+        <section className="max-w-7xl w-full mx-auto px-4 sm:px-6 pt-20 sm:pt-16 pb-4 flex flex-col items-center justify-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center gap-1"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-blue-300 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)] flex-shrink-0 min-w-[max-content]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-blue-300 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">
               ComplianceOps
             </h1>
             <p className="mt-2 text-sm md:text-[15px] text-blue-200/60 font-noto tracking-[0.05em] font-medium">
@@ -57,13 +57,13 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center space-x-4 mt-6"
+            className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-6 w-full sm:w-auto px-4 sm:px-0"
           >
-            <button className="flex items-center space-x-2 px-5 py-2.5 bg-indigo-950/40 hover:bg-indigo-900/60 text-indigo-200 text-sm font-semibold rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-md transition-all border border-indigo-500/20">
+            <button className="flex items-center justify-center space-x-2 px-5 py-2.5 bg-indigo-950/40 hover:bg-indigo-900/60 text-indigo-200 text-sm font-semibold rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-md transition-all border border-indigo-500/20 w-full sm:w-auto">
               <LogIcon className="w-4 h-4" />
               <span>감사 로그 관리</span>
             </button>
-            <button className="flex items-center space-x-2 px-5 py-2.5 bg-white text-black text-sm font-semibold rounded-lg shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:bg-gray-200 transition-all">
+            <button className="flex items-center justify-center space-x-2 px-5 py-2.5 bg-white text-black text-sm font-semibold rounded-lg shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:bg-gray-200 transition-all w-full sm:w-auto">
               <GithubIcon className="w-5 h-5" />
               <span>GitOps 정책 동기화</span>
             </button>
@@ -71,7 +71,7 @@ export default function App() {
         </section>
 
         {/* 캐러셀 섹션 - 슬라이드 전환 네비게이션 */}
-        <section className="w-full max-w-6xl mx-auto px-6 relative z-20 flex-1 flex flex-col justify-center mb-8">
+        <section className="w-full max-w-6xl mx-auto px-2 sm:px-6 relative z-20 flex-1 flex flex-col justify-center mb-8">
           <Carousel />
         </section>
 
@@ -88,8 +88,8 @@ export default function App() {
       </div>
 
       {/* 바닥 슬라이더 영역 */}
-      <div className="relative z-50 w-full bg-[#030407]/95 backdrop-blur-xl pt-10 pb-8 shadow-[0_-20px_40px_rgba(0,0,0,0.8)] border-t border-indigo-900/30">
-        <div className="max-w-7xl mx-auto px-6">
+      <div className="relative z-50 w-full bg-[#030407]/95 backdrop-blur-xl pt-6 sm:pt-10 pb-6 sm:pb-8 shadow-[0_-20px_40px_rgba(0,0,0,0.8)] border-t border-indigo-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <PolicyList />
         </div>
       </div>

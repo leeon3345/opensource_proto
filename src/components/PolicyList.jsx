@@ -14,8 +14,8 @@ const duplicatedPolicies = [...policies, ...policies];
 export default function PolicyList() {
   return (
     <div className="flex flex-col gap-6 overflow-hidden pt-4 pb-0">
-      <div className="flex items-center justify-between pointer-events-none px-2 border-b border-indigo-900/30 pb-4">
-        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-300 drop-shadow-[0_0_4px_rgba(99,102,241,0.6)]">
+      <div className="flex items-center justify-between pointer-events-none px-2 border-b border-indigo-900/30 pb-3 sm:pb-4">
+        <h2 className="text-base sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-300 drop-shadow-[0_0_4px_rgba(99,102,241,0.6)]">
           ISMS-P 런타임 보안 정책 모니터링
         </h2>
         <span className="text-[10px] uppercase font-bold text-emerald-400/70 tracking-[0.2em] border border-emerald-900/40 px-3 py-1.5 rounded-full bg-emerald-900/10 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
@@ -23,7 +23,7 @@ export default function PolicyList() {
         </span>
       </div>
       
-      <div className="relative overflow-hidden w-full py-4 -mx-2">
+      <div className="relative overflow-hidden w-full py-3 sm:py-4 -mx-2">
         {/* 양쪽 끝에 스르륵 사라지는 고급 그라데이션 가림막 배치 */}
         <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#070303] to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#070303] to-transparent z-10 pointer-events-none" />
@@ -31,17 +31,17 @@ export default function PolicyList() {
         <motion.div 
           animate={{ x: [0, -1720] }} 
           transition={{ repeat: Infinity, duration: 25, ease: "linear" }} 
-          className="flex space-x-6 w-max pl-2"
+          className="flex space-x-4 sm:space-x-6 w-max pl-2"
         >
           {duplicatedPolicies.map((policy, index) => (
             <motion.div 
               key={`${policy.id}-${index}`} 
               whileHover={{ scale: 1.02, y: -5 }} 
               style={{ boxShadow: `0 0 15px ${policy.shadow}` }} 
-              className={`w-[320px] h-[160px] p-6 rounded-2xl bg-gradient-to-br bg-[#060410]/60 ${policy.color} backdrop-blur-md relative border border-indigo-400/20 flex flex-col justify-between transition-all cursor-pointer`}
+              className={`w-[240px] sm:w-[320px] h-[130px] sm:h-[160px] p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br bg-[#060410]/60 ${policy.color} backdrop-blur-md relative border border-indigo-400/20 flex flex-col justify-between transition-all cursor-pointer`}
             >
-              <h3 className="text-lg font-bold text-indigo-100 relative z-10 drop-shadow-md">{policy.title}</h3>
-              <p className="text-[13px] text-indigo-200/70 leading-relaxed font-medium relative z-10">
+              <h3 className="text-base sm:text-lg font-bold text-indigo-100 relative z-10 drop-shadow-md">{policy.title}</h3>
+              <p className="text-[11px] sm:text-[13px] text-indigo-200/70 leading-relaxed font-medium relative z-10 line-clamp-2">
                 {policy.desc}
               </p>
             </motion.div>

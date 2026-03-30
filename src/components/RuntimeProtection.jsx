@@ -10,10 +10,10 @@ const falcoEvents = [
 
 export default function RuntimeProtection() {
   return (
-    <div className="flex flex-col h-[460px] bg-[#120505]/80 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(225,29,72,0.3)] border border-rose-500/30">
+    <div className="flex flex-col min-h-[320px] sm:min-h-[420px] md:h-[460px] bg-[#120505]/80 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(225,29,72,0.3)] border border-rose-500/30">
       
       {/* Header */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-rose-500/20 bg-gradient-to-r from-rose-900/40 to-transparent">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between border-b border-rose-500/20 bg-gradient-to-r from-rose-900/40 to-transparent">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-rose-500/20 rounded-lg shadow-[0_0_15px_rgba(225,29,72,0.5)] border border-rose-400/30">
             <svg className="w-5 h-5 text-rose-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,8 +21,8 @@ export default function RuntimeProtection() {
             </svg>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-rose-100 tracking-wide drop-shadow-md">Runtime Protection Engine</h2>
-            <p className="text-[10px] text-rose-300/70 font-mono tracking-wider">Falco Powered Threat Detection</p>
+            <h2 className="text-sm sm:text-lg font-bold text-rose-100 tracking-wide drop-shadow-md">Runtime Protection Engine</h2>
+            <p className="text-[9px] sm:text-[10px] text-rose-300/70 font-mono tracking-wider">Falco Powered Threat Detection</p>
           </div>
         </div>
         <div className="flex space-x-2">
@@ -34,33 +34,33 @@ export default function RuntimeProtection() {
         </div>
       </div>
 
-      <div className="flex-1 p-6 flex flex-col gap-4 overflow-hidden">
+      <div className="flex-1 p-3 sm:p-6 flex flex-col gap-3 sm:gap-4 overflow-hidden">
         
         {/* Threat Stats Summary */}
-        <div className="flex gap-4 mb-2">
-          <div className="flex-1 bg-black/40 border border-rose-900/40 rounded-lg p-3 flex justify-between items-center shadow-[0_0_15px_rgba(0,0,0,0.5)_inset]">
-            <span className="text-xs font-bold text-rose-400/70 uppercase">Critical Threats</span>
-            <span className="text-xl font-black text-rose-500 drop-shadow-[0_0_5px_rgba(225,29,72,0.8)]">12</span>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-1 sm:mb-2">
+          <div className="bg-black/40 border border-rose-900/40 rounded-lg p-2 sm:p-3 flex justify-between items-center shadow-[0_0_15px_rgba(0,0,0,0.5)_inset">
+            <span className="text-[8px] sm:text-xs font-bold text-rose-400/70 uppercase">Critical</span>
+            <span className="text-base sm:text-xl font-black text-rose-500 drop-shadow-[0_0_5px_rgba(225,29,72,0.8)]">12</span>
           </div>
-          <div className="flex-1 bg-black/40 border border-orange-900/40 rounded-lg p-3 flex justify-between items-center shadow-[0_0_15px_rgba(0,0,0,0.5)_inset]">
-            <span className="text-xs font-bold text-orange-400/70 uppercase">High Risks</span>
-            <span className="text-xl font-black text-orange-400 drop-shadow-[0_0_5px_rgba(251,146,60,0.8)]">34</span>
+          <div className="bg-black/40 border border-orange-900/40 rounded-lg p-2 sm:p-3 flex justify-between items-center shadow-[0_0_15px_rgba(0,0,0,0.5)_inset]">
+            <span className="text-[8px] sm:text-xs font-bold text-orange-400/70 uppercase">High</span>
+            <span className="text-base sm:text-xl font-black text-orange-400 drop-shadow-[0_0_5px_rgba(251,146,60,0.8)]">34</span>
           </div>
-          <div className="flex-1 bg-black/40 border border-emerald-900/40 rounded-lg p-3 flex justify-between items-center shadow-[0_0_15px_rgba(0,0,0,0.5)_inset]">
-            <span className="text-xs font-bold text-emerald-400/70 uppercase">Mitigated</span>
-            <span className="text-xl font-black text-emerald-400 drop-shadow-[0_0_5px_rgba(52,211,153,0.8)]">100%</span>
+          <div className="bg-black/40 border border-emerald-900/40 rounded-lg p-2 sm:p-3 flex justify-between items-center shadow-[0_0_15px_rgba(0,0,0,0.5)_inset]">
+            <span className="text-[8px] sm:text-xs font-bold text-emerald-400/70 uppercase">Mitigated</span>
+            <span className="text-base sm:text-xl font-black text-emerald-400 drop-shadow-[0_0_5px_rgba(52,211,153,0.8)]">100%</span>
           </div>
         </div>
 
         {/* Real-time Threat Events */}
-        <div className="flex-1 overflow-y-auto space-y-3 pr-2 scroll-smooth">
+        <div className="flex-1 overflow-y-auto space-y-2 sm:space-y-3 pr-1 sm:pr-2 scroll-smooth">
           {falcoEvents.map((evt, idx) => (
             <motion.div 
               key={evt.id}
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.15 }}
-              className="relative p-4 rounded-xl border border-rose-900/40 bg-gradient-to-r from-rose-950/30 to-black/40 hover:from-rose-900/40 hover:to-black/60 transition-colors shadow-[0_0_10px_rgba(0,0,0,0.3)] backdrop-blur-sm group"
+              className="relative p-3 sm:p-4 rounded-xl border border-rose-900/40 bg-gradient-to-r from-rose-950/30 to-black/40 hover:from-rose-900/40 hover:to-black/60 transition-colors shadow-[0_0_10px_rgba(0,0,0,0.3)] backdrop-blur-sm group"
             >
               {/* Left highlight strip */}
               <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-xl opacity-80 ${evt.severity === 'CRITICAL' ? 'bg-rose-500 shadow-[0_0_10px_rgba(225,29,72,1)]' : evt.severity === 'HIGH' ? 'bg-orange-500 shadow-[0_0_10px_rgba(251,146,60,1)]' : 'bg-yellow-500'}`} />
@@ -73,9 +73,10 @@ export default function RuntimeProtection() {
                     </span>
                     <span className="text-xs font-mono text-rose-200/50">{evt.time}</span>
                   </div>
-                  <h3 className="text-sm font-bold text-rose-100 group-hover:text-white drop-shadow-md transition-colors">{evt.rule}</h3>
-                  <p className="text-[11px] text-rose-200/60 font-mono">
-                    Target: <span className="text-rose-300">{evt.pod}</span> (NS: {evt.namespace})
+                  <h3 className="text-xs sm:text-sm font-bold text-rose-100 group-hover:text-white drop-shadow-md transition-colors">{evt.rule}</h3>
+                  <p className="text-[10px] sm:text-[11px] text-rose-200/60 font-mono truncate">
+                    <span className="hidden sm:inline">Target: </span><span className="text-rose-300">{evt.pod}</span>
+                    <span className="hidden sm:inline"> (NS: {evt.namespace})</span>
                   </p>
                 </div>
                 
