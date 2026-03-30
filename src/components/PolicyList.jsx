@@ -14,9 +14,9 @@ const duplicatedPolicies = [...policies, ...policies];
 export default function PolicyList() {
   return (
     <div className="flex flex-col gap-6 overflow-hidden pt-4 pb-0">
-      <div className="flex items-center justify-between pointer-events-none px-2 border-b border-red-900/20 pb-4">
-        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-orange-300 drop-shadow-[0_0_4px_rgba(248,113,113,0.4)]">
-          CSAP 필수 점검 레이더
+      <div className="flex items-center justify-between pointer-events-none px-2 border-b border-indigo-900/30 pb-4">
+        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-300 drop-shadow-[0_0_4px_rgba(99,102,241,0.6)]">
+          ISMS-P 런타임 보안 정책 모니터링
         </h2>
         <span className="text-[10px] uppercase font-bold text-emerald-400/70 tracking-[0.2em] border border-emerald-900/40 px-3 py-1.5 rounded-full bg-emerald-900/10 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
           Auto Monitoring

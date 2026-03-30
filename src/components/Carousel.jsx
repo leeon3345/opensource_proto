@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Dashboard from './Dashboard';
-import Scanner from './Scanner';
+import AdmissionSecurity from './AdmissionSecurity';
+import RuntimeProtection from './RuntimeProtection';
+import ComplianceOverview from './ComplianceOverview';
 import AiAssistant from './AiAssistant';
+import Scanner from './Scanner';
+import YamlScanner from './YamlScanner';
 
 const slides = [
-  { id: 'dashboard', component: <Dashboard /> },
-  { id: 'scanner', component: <div className="max-w-4xl mx-auto w-full"><Scanner /></div> },
-  { id: 'ai', component: <div className="max-w-4xl mx-auto w-full"><AiAssistant /></div> }
+  { id: 'admission', component: <div className="max-w-5xl mx-auto w-full"><AdmissionSecurity /></div> },
+  { id: 'runtime', component: <div className="max-w-5xl mx-auto w-full"><RuntimeProtection /></div> },
+  { id: 'compliance', component: <div className="max-w-5xl mx-auto w-full"><ComplianceOverview /></div> },
+  { id: 'ai', component: <div className="max-w-5xl mx-auto w-full"><AiAssistant /></div> },
+  { id: 'scanner', component: <div className="max-w-5xl mx-auto w-full"><Scanner /></div> },
+  { id: 'yaml', component: <div className="max-w-5xl mx-auto w-full"><YamlScanner /></div> }
 ];
 
 export default function Carousel() {
@@ -15,13 +21,10 @@ export default function Carousel() {
 
   // Auto-play interval
   useEffect(() => {
-    let delay = 8000;
-    if (index === 0) delay = 4000; // 0: Dashboard (faster transition)
-    if (index === 1) delay = 6500; // 1: Scanner (slower text, waits ~6.5s)
-    if (index === 2) delay = 8000; // 2: AiAssistant
+    // All SOC slides share a unified 10-second viewing window
     const timer = setTimeout(() => {
       setIndex((prev) => (prev + 1) % slides.length);
-    }, delay);
+    }, 10000);
     return () => clearTimeout(timer);
   }, [index]);
 
@@ -68,7 +71,7 @@ export default function Carousel() {
           <button
             key={idx}
             onClick={() => setIndex(idx)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === idx ? 'bg-red-500 w-8 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'bg-white/20 hover:bg-white/40'
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === idx ? 'bg-indigo-500 w-8 shadow-[0_0_10px_rgba(99,102,241,0.8)]' : 'bg-white/20 hover:bg-white/40'
               }`}
           />
         ))}

@@ -13,9 +13,9 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-[#070303] text-white selection:bg-red-500/30 font-sans mx-auto overflow-x-hidden">
 
-      {/* 붉은 네온 및 유니콘 배경 */}
+      {/* 푸른 네온 및 유니콘 배경 */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.12)_0%,rgba(7,3,3,1)_100%)] mix-blend-screen opacity-90 z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.15)_0%,rgba(3,4,7,1)_100%)] mix-blend-screen opacity-90 z-10" />
         <UnicornScene
           projectId="jbZLy922iuJZ0hKo9Amq"
           width="100%"
@@ -38,11 +38,11 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center gap-4"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-100 to-rose-200 drop-shadow-[0_0_8px_rgba(251,146,60,0.3)] pb-2 flex-shrink-0 min-w-[max-content]">
-              CSAP AI Auto-Remediation
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-blue-300 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)] pb-2 flex-shrink-0 min-w-[max-content]">
+              ISMS-P Kubernetes SOC Center
             </h1>
-            <p className="text-lg text-red-200/60 max-w-2xl font-medium">
-              CSAP 공공 클라우드 규제 실시간 보안 진단 및 자동화 대응
+            <p className="text-lg text-indigo-200/60 max-w-2xl font-medium">
+              ISMS-P 컴플라이언스 기준 실시간 쿠버네티스 통합 관제 및 자동 대응
             </p>
           </motion.div>
 
@@ -52,7 +52,7 @@ export default function App() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center space-x-4 mt-8"
           >
-            <button className="flex items-center space-x-2 px-5 py-2.5 bg-red-950/40 hover:bg-red-900/60 text-red-200 text-sm font-semibold rounded-lg shadow-[0_0_15px_rgba(220,38,38,0.2)] backdrop-blur-md transition-all">
+            <button className="flex items-center space-x-2 px-5 py-2.5 bg-indigo-950/40 hover:bg-indigo-900/60 text-indigo-200 text-sm font-semibold rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-md transition-all border border-indigo-500/20">
               <LogIcon className="w-4 h-4" />
               <span>감사 로그 관리</span>
             </button>
@@ -71,7 +71,7 @@ export default function App() {
       </main>
 
       {/* 바닥 슬라이더 영역 - 유니콘 스튜디오 뱃지 커버업 */}
-      <div className="relative z-50 w-full mt-16 bg-[#070303]/95 backdrop-blur-xl pt-10 pb-8 shadow-[0_-20px_40px_rgba(0,0,0,0.8)] border-t border-red-900/20">
+      <div className="relative z-50 w-full mt-16 bg-[#030407]/95 backdrop-blur-xl pt-10 pb-8 shadow-[0_-20px_40px_rgba(0,0,0,0.8)] border-t border-indigo-900/30">
         <div className="max-w-7xl mx-auto px-6">
           <PolicyList />
         </div>
